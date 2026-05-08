@@ -1,0 +1,29 @@
+# Maven
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.tar.gz
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+.project
+.classpath
+.settings/
+
+# Node
+node_modules/
+dist/
+.env
+.env.local
+
+# Spring Boot
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db

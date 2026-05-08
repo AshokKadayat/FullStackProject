@@ -1,0 +1,34 @@
+package net.engineeringdigest.journalApp.entity;
+
+
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import net.engineeringdigest.journalApp.enums.Sentiment;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+
+
+@Document(collection = "journal_entries")
+@Data
+@NoArgsConstructor
+public class JournalEntry {
+
+
+    @Id
+    @com.fasterxml.jackson.databind.annotation.JsonSerialize(using = com.fasterxml.jackson.databind.ser.std.ToStringSerializer.class)
+    private ObjectId id;   // Primary key for MongoDB
+    @NotNull
+    private String title;
+    private String content;
+    private LocalDateTime date;
+    private Sentiment sentiment;
+
+
+
+
+}
