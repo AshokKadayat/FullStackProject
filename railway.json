@@ -2,13 +2,12 @@
   "$schema": "https://railway.app/railway.schema.json",
   "build": {
     "builder": "NIXPACKS",
-    "buildCommand": "cd backend && ./mvnw clean install -DskipTests",
+    "buildCommand": "if [ -d backend ]; then cd backend && ./mvnw clean install -DskipTests; else ./mvnw clean install -DskipTests; fi",
     "watchPatterns": ["backend/**"]
   },
   "deploy": {
-    "startCommand": "java -jar backend/target/journalApp-0.0.1-SNAPSHOT.jar",
+    "startCommand": "if [ -d backend ]; then java -jar backend/target/journalApp-0.0.1-SNAPSHOT.jar; else java -jar target/journalApp-0.0.1-SNAPSHOT.jar; fi",
     "healthCheckPath": "/journal/public/Health-check",
-    "healthCheckTimeout": 120,
-    "restartPolicyType": "ON_FAILURE"
+    "healthCheckTimeout": 120
   }
 }
