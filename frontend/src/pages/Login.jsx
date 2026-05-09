@@ -18,7 +18,7 @@ export default function Login() {
     try {
       // The backend returns a string JWT. We don't need auth header for this.
       const res = await api.post('/public/login', { username, password });
-      const token = res.data; 
+      const token = res.data.token; 
       
       setToken(token);
       addToast('Logged in successfully', 'success');
