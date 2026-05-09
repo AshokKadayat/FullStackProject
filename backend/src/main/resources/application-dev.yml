@@ -12,4 +12,4 @@ server:
 
 weather:
   api:
-    key: ${WEATHER_API_KEY:WHEATHER-API}
+    key: ${WEATHER_API_KEY:WEATHER-API}
