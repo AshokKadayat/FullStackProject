@@ -11,20 +11,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.apache.tomcat.jni.SSL.setPassword;
 @Service
 @Slf4j
 public class UserService {
     @Autowired
     private UserRepository userRepository;
-
-    private static final PasswordEncoder pwdEncoder = new BCryptPasswordEncoder();
-
-
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -48,12 +42,22 @@ public class UserService {
     public User saveAdmin(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(Arrays.asList("USER","ADMIN"));
-        return userRepository.save(user); // ✅ return the saved user
+        return userRepository.save(user);
     }
 
-    public User saveUser(User user) {
+    public void saveUser(User user) {
         userRepository.save(user);
-        return user;
+    }
+
+    public void updateUser(User user) {
+        User userInDb = userRepository.findByUsername(user.getUsername());
+        if (userInDb != null) {
+            userInDb.setUsername(user.getUsername());
+            if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+                userInDb.setPassword(passwordEncoder.encode(user.getPassword()));
+            }
+            userRepository.save(userInDb);
+        }
     }
 
     public User findByUsername(String username) {
