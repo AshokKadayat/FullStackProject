@@ -2,7 +2,8 @@ import axios from 'axios';
 
 // All API calls go to the same host (proxied via Vite to http://localhost:8081)
 // Context path is /journal (from application-dev.yml)
-const BASE_URL = '/journal';
+// Use environment variable for production, fallback to local proxy path
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || '/journal';
 
 const api = axios.create({
   baseURL: BASE_URL,
